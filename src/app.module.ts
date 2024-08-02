@@ -6,6 +6,7 @@ import { UserModule } from './modules/user/user.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { CommentModule } from './modules/comment/comment.module';
 import { MovieModule } from './modules/movie/movie.module';
+import { RatingModule } from './modules/rating/rating.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { MovieModule } from './modules/movie/movie.module';
     UserModule,
     PrismaModule,
     CommentModule,
-    MovieModule
+    MovieModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

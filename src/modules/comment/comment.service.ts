@@ -31,4 +31,10 @@ export class CommentService {
             }
         })
     }
+
+    async deleteComment (id: number) {
+        return this.prisma.comment.delete({
+            where: {id}
+        })
+    }
 }
