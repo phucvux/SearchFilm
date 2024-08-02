@@ -1,10 +1,14 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 
-@Controller('comment')
+@Controller('comments')
 export class CommentController {
     constructor (private readonly commentService: CommentService) {}
 
-
+    @Put(':commentId')
+    async editComment (@Param('commentId') id: string, @Body() updateCommentDto: AddCommentDto) {
+        const newComment = await this.commentService.updateComment(+id, updateCommentDto);
+        return newComment;
+    }
 }

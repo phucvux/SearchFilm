@@ -22,4 +22,13 @@ export class CommentService {
             where: { movieId },
         });
     }
+
+    async updateComment (id: number, updateCommentDto: AddCommentDto) {
+        return this.prisma.comment.update({
+            where: {id},
+            data: {
+                content: updateCommentDto.content
+            }
+        })
+    }
 }
