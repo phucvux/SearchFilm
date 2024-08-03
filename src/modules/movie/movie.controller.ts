@@ -16,8 +16,10 @@ export class MovieController {
     @Param('id') movieId: string,
     @Body() addCommentDto: AddCommentDto,
   ) {
+    const userId = 1;   //sau thay bang lay token
     const comment = await this.commentService.addComment(
       +movieId,
+      +userId,
       addCommentDto,
     );
     return comment;
@@ -35,12 +37,13 @@ export class MovieController {
     @Param('id') movieId: string,
     @Body() addRatingDto: AddRatingDto,
   ) {
-    const rating = await this.ratingService.addRating(+movieId, addRatingDto);
+    const userId = 1; //sau thay token
+    const rating = await this.ratingService.addRating(+movieId, +userId, addRatingDto);
     return rating;
   }
 
   @Get(':id/rating')
-  async getRating (@Param('id') movieId: string) {
+  async getRating(@Param('id') movieId: string) {
     const rates = await this.ratingService.getRate(+movieId);
     return rates;
   }

@@ -7,6 +7,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
 import { CommentModule } from './modules/comment/comment.module';
 import { MovieModule } from './modules/movie/movie.module';
 import { RatingModule } from './modules/rating/rating.module';
+import { PlaylistModule } from './modules/playlist/playlist.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RatingModule } from './modules/rating/rating.module';
     CommentModule,
     MovieModule,
     RatingModule,
+    PlaylistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
