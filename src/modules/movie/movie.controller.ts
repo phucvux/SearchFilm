@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseFilters } from '@nestjs/common';
 import { CommentService } from '../comment/comment.service';
 import { AddCommentDto } from '../comment/dto/add-comment.dto';
 import { AddRatingDto } from '../rating/dto/add-rating.dto';
 import { RatingService } from '../rating/rating.service';
+import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 
 @Controller('movies')
+@UseFilters(AllExceptionsFilter)
 export class MovieController {
   constructor(
     private readonly commentService: CommentService,

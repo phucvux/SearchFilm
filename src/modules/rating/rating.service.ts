@@ -6,32 +6,32 @@ import { AddRatingDto } from './dto/add-rating.dto';
 export class RatingService {
   constructor(private prisma: PrismaService) {}
 
-  async addRating(movieId: number, userId: number, addRatingDto: AddRatingDto) {
-    const existingRating = await this.prisma.rating.findFirst({
+  async addRating(movie_id: number, user_id: number, addRatingDto: AddRatingDto) {
+    const existingRating = await this.prisma.ratings.findFirst({
       where: {
-        movieId,
-        userId,
+        movie_id,
+        user_id,
       },
     });
 
     if (existingRating) {
       throw new BadRequestException('You already rating this film');
     }
-    if (addRatingDto.value < 1 || addRatingDto.value > 5) {
+    if (addRatingDto.score < 1 || addRatingDto.score > 5) {
       throw new BadRequestException('Rating must be between 1 and 5');
     }
-    return this.prisma.rating.create({
+    return this.prisma.ratings.create({
       data: {
-        value: addRatingDto.value,
-        movie: { connect: { id: movieId } },
-        user: { connect: { id: userId } },
+        score: addRatingDto.score,
+        movie: { connect: { movie_id: movie_id } },
+        user: { connect: { user_id: user_id } },
       },
     });
   }
 
-  async getRate(movieId: number) {
-    return this.prisma.rating.findMany({
-      where: { movieId },
+  async getRate(movie_id: number) {
+    return this.prisma.ratings.findMany({
+      where: { movie_id },
     });
   }
 }

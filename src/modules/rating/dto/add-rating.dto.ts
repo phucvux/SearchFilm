@@ -4,5 +4,5 @@ export class AddRatingDto {
     @IsNumber()
     @Min(1)
     @Max(5)
-    value: number;
+    score: number;
 }

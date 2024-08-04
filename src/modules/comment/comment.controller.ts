@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, UseFilters } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { AddCommentDto } from './dto/add-comment.dto';
+import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 
 @Controller('comments')
+@UseFilters(AllExceptionsFilter)
 export class CommentController {
     constructor (private readonly commentService: CommentService) {}
 
