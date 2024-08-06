@@ -19,4 +19,10 @@ export class PlaylistController {
         const playlist = await this.playlistService.deletePlaylist(+id, +userId);
         return playlist;
     }
+
+    @Delete(':playlistId/movie')
+    async removeMovieFromPlaylist (@Param('playlistId') category_id: string, @Body() {movie_id}: {movie_id: string}) {
+        const newPlaylist = await this.playlistService.removeMovieFromPlaylist(+category_id, +movie_id);
+        return newPlaylist;
+    }
 }

@@ -8,6 +8,7 @@ import { CommentModule } from './modules/comment/comment.module';
 import { MovieModule } from './modules/movie/movie.module';
 import { RatingModule } from './modules/rating/rating.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { PlaylistModule } from './modules/playlist/playlist.module';
     MovieModule,
     RatingModule,
     PlaylistModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],
