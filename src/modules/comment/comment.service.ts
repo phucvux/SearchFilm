@@ -8,7 +8,7 @@ export class CommentService {
 
   async addComment(movieId: number, userId: number, createCommentDto: AddCommentDto) {
     if(!createCommentDto.content) {
-      throw new HttpException ("Comment Is Blank", HttpStatus.NOT_FOUND);
+      throw new Error("Comment Is Blank");
     }
     return this.prisma.comments.create({
       data: {
