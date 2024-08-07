@@ -11,6 +11,8 @@ import { PlaylistModule } from './modules/playlist/playlist.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ReportBugModule } from './modules/report-bug/report-bug.module';
+import { RequestFeatureModule } from './modules/request-feature/request-feature.module';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { JwtModule } from '@nestjs/jwt';
     NotificationModule,
     AuthModule,
     JwtModule,
-    JwtModule.register({})
+    JwtModule.register({}),
+    ReportBugModule,
+    RequestFeatureModule,
   ],
   controllers: [AppController],
   providers: [AppService ],

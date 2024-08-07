@@ -30,6 +30,8 @@ model users {
   categories     categories[]
   blogs          blogs[]
   blog_comments  blog_comments[]
+  report_bugs    report_bugs[]
+  request_features  request_features[]
 }
 
 model movies {
@@ -251,4 +253,24 @@ model blog_comments {
   user              users          @relation(fields: [user_id], references: [user_id])
   parent_comment    blog_comments? @relation("BlogCommentToBlogComment", fields: [parent_comment_id], references: [comment_id])
   replies           blog_comments[] @relation("BlogCommentToBlogComment")
+}
+
+model report_bugs {
+  bug_id       Int         @id @default(autoincrement())
+  user_id         Int
+  title           String
+  description     String
+  created_at      DateTime        @default(now())
+  user            users       @relation(fields: [user_id], references: [user_id])
+
+}
+
+model request_features {
+  feature_id      Int     @id   @default(autoincrement())
+  user_id         Int
+  title           String
+  description     String
+  created_at      DateTime    @default(now())
+  user            users     @relation(fields: [user_id], references: [user_id])
+
 }

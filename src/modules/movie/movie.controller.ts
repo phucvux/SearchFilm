@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { CommentService } from '../comment/comment.service';
 import { AddCommentDto } from '../comment/dto/add-comment.dto';
 import { AddRatingDto } from '../rating/dto/add-rating.dto';
@@ -43,7 +43,7 @@ export class MovieController {
   @UseGuards(AuthGuard)
   async addRating(
     @Param('id') movieId: string,
-    @Body() addRatingDto: AddRatingDto,
+    @Body() addRatingDto: AddRatingDto, 
     @Req() req:any
   ) {
     const userId = req.user_data.user_id; //sau thay token
@@ -62,5 +62,21 @@ export class MovieController {
   async addMovieToPlaylist(@Param('id') movie_id: string, @Body() {category_id}: {category_id: string}) {
     const addMovie = await this.movieService.addMovieToPlaylist(+movie_id, +category_id);
     return addMovie;
+  }
+
+  @Get(':id/user-rate')
+  @UseGuards(AuthGuard)
+  async getRateByUser (@Param('id') movie_id: string, @Req() req: any) {
+    const user_id = req.user_data.user_id;
+    const rated = await this.ratingService.getRateByUser(+movie_id, +user_id);
+    return rated;
+  }
+
+  @Put(':id/change-rate')
+  @UseGuards(AuthGuard)
+  async updateOwnReview (@Param('id') movie_id: string, @Body() {rating_id}: {rating_id:string} ,@Body() editRateDto: AddRatingDto, @Req() req: any) {
+    const user_id = req.user_data.user_id;
+    const newRate = await this.ratingService.editOwnRate(+rating_id, +movie_id, +user_id, editRateDto);
+    return newRate;
   }
 }
