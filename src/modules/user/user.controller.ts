@@ -17,15 +17,17 @@ export class UserController {
     ) {}
 
     @Post('playlists')
-    async createPlaylist (@Body() createPlaylist: CreatePlaylist) {
-        const userId = 2 //sau thay token
+    @UseGuards(AuthGuard)
+    async createPlaylist (@Body() createPlaylist: CreatePlaylist, @Req() req:any) {
+        const userId = req.user_data.user_id; //sau thay token
         const playlist = await this.playlistService.createPlaylist(+userId, createPlaylist);
         return playlist;
     }
 
     @Get('playlists')
-    async getPlaylist () {
-        const userId = 2; //sau thay token
+    @UseGuards(AuthGuard)
+    async getPlaylist (@Req() req:any) {
+        const userId = req.user_data.user_id; //sau thay token
         const playlists = await this.playlistService.getPlaylists(+userId);
         return playlists;
     }

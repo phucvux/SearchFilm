@@ -1,21 +1,23 @@
-import { Body, Controller, Delete, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Put, Req, UseGuards } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylist } from './dto/create-playlist.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('playlists')
 export class PlaylistController {
     constructor (private readonly playlistService: PlaylistService) {}
 
     @Put(':playlistId')
-    async editPlaylist (@Param('playlistId') id: string, @Body() updatePlaylist : CreatePlaylist) {
-        const userId = 1; //sau thay token
+    @UseGuards(AuthGuard)
+    async editPlaylist (@Param('playlistId') id: string, @Body() updatePlaylist : CreatePlaylist, @Req() req: any) {
+        const userId = req.user_data.user_id;; //sau thay token
         const newPlaylist = await this.playlistService.editPlaylist(+id, +userId, updatePlaylist);
         return newPlaylist;
     }
 
     @Delete(':playlistId')
-    async deletePlaylist (@Param('playlistId') id: string) {
-        const userId = 1;//sau thay token
+    async deletePlaylist (@Param('playlistId') id: string,@Req() req:any) {
+        const userId = req.user_data.user_id;//sau thay token
         const playlist = await this.playlistService.deletePlaylist(+id, +userId);
         return playlist;
     }
