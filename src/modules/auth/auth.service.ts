@@ -16,7 +16,7 @@ export class AuthService {
     private mailerService: MailerService,
   ) {}
 
-  async register(userData: RegisterDto): Promise<users> {
+  async register(userData: RegisterDto): Promise<any> {
     const user = await this.prismaService.users.findUnique({
       where: { email: userData.email },
     });
@@ -29,9 +29,37 @@ export class AuthService {
 
     const hash = await bcrypt.hash(userData.password, salt);
 
+    const token = await this.jwtService.signAsync({email: userData.email}, {
+      expiresIn: '5m',
+      secret: process.env.VERIFY_TOKEN_KEY
+    })
+
+    await this.mailerService.verifyEmail(token, userData.email)
+
     return await this.prismaService.users.create({
-      data: { ...userData, password: hash },
+      data: { ...userData, password: hash }
     });
+  }
+
+  async verifyAccount(token: string) {
+    try {
+      console.log(token)
+      const {email} = await this.jwtService.verifyAsync(token, {
+        secret: process.env.VERIFY_TOKEN_KEY
+      })
+      
+      return await this.prismaService.users.update({
+        where: {email: email},
+        data: {is_verify: true}
+      })
+    } catch (error) {
+      throw new HttpException({
+                status: 419,
+                message: 'token expired or does not exist'
+            }, 419)
+    }
+
+    
   }
 
   async login(loginData: LoginDto): Promise<any> {

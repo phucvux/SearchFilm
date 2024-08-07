@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
 import { users } from '@prisma/client';
 import { AuthService } from './auth.service';
@@ -18,6 +18,11 @@ export class AuthController {
     @Post('/login')
     login(@Body() loginData: LoginDto) {
         return this.authService.login(loginData)
+    }
+
+    @Get('/verify-account')
+    verifyAccount(@Query('token') token: string) {
+        return this.authService.verifyAccount(token)
     }
 
     @Post('/api/users/login-2fa')
