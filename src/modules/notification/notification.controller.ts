@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Put, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { NotificationService } from './notification.service';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('notifications')
 @UseFilters(AllExceptionsFilter)

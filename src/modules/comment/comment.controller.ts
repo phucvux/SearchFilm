@@ -2,7 +2,8 @@ import { Body, Controller, Delete, Param, Post, Put, UseFilters, UseGuards } fro
 import { CommentService } from './comment.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth/guards/auth.guard';
+
 
 @Controller('comments')
 @UseFilters(AllExceptionsFilter)

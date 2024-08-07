@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Param, Put, Req, UseGuards } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylist } from './dto/create-playlist.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('playlists')
 export class PlaylistController {

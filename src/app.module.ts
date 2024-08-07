@@ -9,6 +9,8 @@ import { MovieModule } from './modules/movie/movie.module';
 import { RatingModule } from './modules/rating/rating.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -21,9 +23,12 @@ import { NotificationModule } from './modules/notification/notification.module';
     MovieModule,
     RatingModule,
     PlaylistModule,
-    NotificationModule
+    NotificationModule,
+    AuthModule,
+    JwtModule,
+    JwtModule.register({})
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService ],
 })
 export class AppModule {}

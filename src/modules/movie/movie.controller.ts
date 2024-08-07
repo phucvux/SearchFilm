@@ -5,7 +5,7 @@ import { AddRatingDto } from '../rating/dto/add-rating.dto';
 import { RatingService } from '../rating/rating.service';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { MovieService } from './movie.service';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('movies')
 @UseFilters(AllExceptionsFilter)

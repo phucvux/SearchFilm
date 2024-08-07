@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { PlaylistController } from './playlist.controller';
 import { PrismaModule } from '../prisma/prisma.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, JwtModule.register({})],
   providers: [PlaylistService],
   controllers: [PlaylistController]
 })
