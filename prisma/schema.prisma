@@ -17,6 +17,8 @@ model users {
   role           String   @default("user")
   google_id      String?  @unique
   facebook_id    String?  @unique
+  is_2fa      Boolean  @default(true)
+  is_verify   Boolean  @default(false)
   created_at     DateTime @default(now())
   updated_at     DateTime @default(now())
   ratings        ratings[]
