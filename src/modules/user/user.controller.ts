@@ -7,9 +7,11 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { FilterUserDto } from './dtos/filter-user.dto';
 import { UpdateUserByAdminDto } from './dtos/update-user-by-admin.dto';
-import { users } from '@prisma/client';
+import { User } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiTags('users')
 @UseFilters(AllExceptionsFilter)
 export class UserController {
     constructor (private readonly playlistService: PlaylistService,
@@ -72,14 +74,14 @@ export class UserController {
     @UseGuards(new RoleGuard(["admin"]))
     @UseGuards(AuthGuard)
     @Put('/api/admin/users/:id')
-    updateUserByAdmin(@Param('id') id:string, @Body() userData: UpdateUserByAdminDto):Promise<users> {
+    updateUserByAdmin(@Param('id') id:string, @Body() userData: UpdateUserByAdminDto):Promise<User> {
         return this.userService.updateUserByAdmin(Number(id), userData)
     }
 
     @UseGuards(new RoleGuard(["admin"]))
     @UseGuards(AuthGuard)
     @Delete('/api/admin/users/:id')
-    deleteUserByAdmin(@Param('id') id:string):Promise<users> {
+    deleteUserByAdmin(@Param('id') id:string):Promise<User> {
         return this.userService.deleteUserByAdmin(Number(id))
     }
 

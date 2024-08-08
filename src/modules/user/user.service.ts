@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { FilterUserDto } from './dtos/filter-user.dto';
 import { UpdateUserByAdminDto } from './dtos/update-user-by-admin.dto';
-import { users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -10,7 +10,7 @@ export class UserService {
     constructor(private prismaService: PrismaService) {}
 
   async getUserDetail(id: number): Promise<any> {
-    const response = await this.prismaService.users.findUnique({
+    const response = await this.prismaService.user.findUnique({
       where: { user_id: id },
       select: {
         user_id: true,
@@ -27,7 +27,7 @@ export class UserService {
   }
 
   async getMe(id: number): Promise<any> {
-    const response = await this.prismaService.users.findUnique({
+    const response = await this.prismaService.user.findUnique({
       where: { user_id: id },
       select: {
         user_id: true,
@@ -53,7 +53,7 @@ export class UserService {
     const search = query.search || '';
 
     const [users, count] = await this.prismaService.$transaction([
-      this.prismaService.users.findMany({
+      this.prismaService.user.findMany({
         where: {
           role: {
             not: 'admin',
@@ -90,7 +90,7 @@ export class UserService {
           user_id: 'asc',
         },
       }),
-      this.prismaService.users.count({
+      this.prismaService.user.count({
         where: {
           role: {
             not: 'admin',
@@ -117,8 +117,8 @@ export class UserService {
     };
   }
 
-  async enable2fa(id: number): Promise<users> {
-    return this.prismaService.users.update({
+  async enable2fa(id: number): Promise<User> {
+    return this.prismaService.user.update({
       where: {
         user_id: id
       },
@@ -128,8 +128,8 @@ export class UserService {
     })
   }
 
-  async disable2fa(id: number): Promise<users> {
-    return this.prismaService.users.update({
+  async disable2fa(id: number): Promise<User> {
+    return this.prismaService.user.update({
       where: {
         user_id: id
       },
@@ -141,8 +141,8 @@ export class UserService {
 
 
 // Admin
-  async updateUserByAdmin(id: number, data: UpdateUserByAdminDto):Promise<users> {
-    const response = await this.prismaService.users.update({
+  async updateUserByAdmin(id: number, data: UpdateUserByAdminDto):Promise<User> {
+    const response = await this.prismaService.user.update({
       where: {user_id: id},
       data: data
     })
@@ -150,8 +150,8 @@ export class UserService {
     return response
   }
 
-  async deleteUserByAdmin(id: number):Promise<users> {
-    const response = await this.prismaService.users.delete({
+  async deleteUserByAdmin(id: number):Promise<User> {
+    const response = await this.prismaService.user.delete({
       where: {user_id: id}
     })
 
@@ -164,7 +164,7 @@ export class UserService {
     const search = query.search || '';
 
     const [users, count] = await this.prismaService.$transaction([
-      this.prismaService.users.findMany({
+      this.prismaService.user.findMany({
         where: {
           role: {
             not: 'admin',
@@ -202,7 +202,7 @@ export class UserService {
           user_id: 'asc',
         },
       }),
-      this.prismaService.users.count({
+      this.prismaService.user.count({
         where: {
           role: {
             not: 'admin',

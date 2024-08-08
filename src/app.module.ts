@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ReportBugModule } from './modules/report-bug/report-bug.module';
 import { RequestFeatureModule } from './modules/request-feature/request-feature.module';
+import { AdvertisementModule } from './modules/advertisement/advertisement.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { RequestFeatureModule } from './modules/request-feature/request-feature.
     JwtModule.register({}),
     ReportBugModule,
     RequestFeatureModule,
+    AdvertisementModule,
   ],
   controllers: [AppController],
   providers: [AppService ],

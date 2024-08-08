@@ -8,7 +8,7 @@ export class RequestFeatureService {
     constructor (private prisma: PrismaService){}
 
     async createReqFeature (user_id: number, CreateFeatureRequestDto: CreateFeatureRequestDto) {
-        return await this.prisma.request_features.create({
+        return await this.prisma.requestFeature.create({
             data: {
                 title: CreateFeatureRequestDto.title,
                 description: CreateFeatureRequestDto.description,
@@ -20,7 +20,7 @@ export class RequestFeatureService {
     }
 
     async getReqFeature () {
-        const reports = await this.prisma.request_features.findMany();
+        const reports = await this.prisma.requestFeature.findMany();
         if(!reports) {
             throw new HttpException("No Records", HttpStatus.NOT_FOUND);
         }
@@ -28,7 +28,7 @@ export class RequestFeatureService {
     }
 
     async deleteReqFeature (id: number) {
-        return this.prisma.request_features.delete({
+        return this.prisma.requestFeature.delete({
             where: {feature_id: id}
         })
     }

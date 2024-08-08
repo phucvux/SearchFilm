@@ -3,9 +3,11 @@ import { CommentService } from './comment.service';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('comments')
+@ApiTags('comment')
 @UseFilters(AllExceptionsFilter)
 export class CommentController {
     constructor (private readonly commentService: CommentService) {}

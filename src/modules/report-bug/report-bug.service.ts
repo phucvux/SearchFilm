@@ -8,7 +8,7 @@ export class ReportBugService {
     constructor (private prisma: PrismaService){}
 
     async createReportBug (user_id: number, createReportBugDto: CreateBugReportDto) {
-        return await this.prisma.report_bugs.create({
+        return await this.prisma.reportBug.create({
             data: {
                 title: createReportBugDto.title,
                 description: createReportBugDto.description,
@@ -20,7 +20,7 @@ export class ReportBugService {
     }
 
     async getReportBugs () {
-        const reports = await this.prisma.report_bugs.findMany();
+        const reports = await this.prisma.reportBug.findMany();
         if(!reports) {
             throw new HttpException("No Records", HttpStatus.NOT_FOUND);
         }
@@ -28,7 +28,7 @@ export class ReportBugService {
     }
 
     async deleteReportBug (id: number) {
-        return this.prisma.report_bugs.delete({
+        return this.prisma.reportBug.delete({
             where: {bug_id: id}
         })
     }

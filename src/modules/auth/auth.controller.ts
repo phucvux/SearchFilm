@@ -1,17 +1,19 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
-import { users } from '@prisma/client';
+import { User } from '@prisma/client';
 import { AuthService } from './auth.service';
 import { Login2faDto } from './dtos/login-2fa.dto';
 import { LoginDto } from './dtos/login.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
 
     constructor (private authService: AuthService) {}
 
     @Post('/register')
-    register(@Body() register: RegisterDto):Promise<users> {
+    register(@Body() register: RegisterDto):Promise<User> {
         return this.authService.register(register)
     }
 

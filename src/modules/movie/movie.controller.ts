@@ -6,8 +6,10 @@ import { RatingService } from '../rating/rating.service';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { MovieService } from './movie.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('movies')
+@ApiTags('movies')
 @UseFilters(AllExceptionsFilter)
 export class MovieController {
   constructor(

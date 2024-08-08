@@ -7,7 +7,7 @@ export class PlaylistService {
     constructor (private prisma: PrismaService){}
 
     async createPlaylist (userId: number, createPlaylist: CreatePlaylist) {
-        return await this.prisma.categories.create({
+        return await this.prisma.category.create({
             data: {
                 name: createPlaylist.name,
                 user: {connect: {user_id: userId}}
@@ -16,13 +16,13 @@ export class PlaylistService {
     }
 
     async getPlaylists (userId: number) {
-        return this.prisma.categories.findMany({
+        return this.prisma.category.findMany({
             where: {user_id: userId}
         })
     }
 
     async editPlaylist (category_id: number, userId: number, updatePlaylist: CreatePlaylist) {
-        return this.prisma.categories.update({
+        return this.prisma.category.update({
             where: {category_id},
             data: {
                 name: updatePlaylist.name,
@@ -32,13 +32,13 @@ export class PlaylistService {
     }
 
     async deletePlaylist (category_id: number, user_id: number) {
-        return this.prisma.categories.delete({
+        return this.prisma.category.delete({
             where: {category_id, user_id}
         })
     }
 
     async removeMovieFromPlaylist (category_id: number, movie_id:number) {
-        return this.prisma.category_movies.delete({
+        return this.prisma.categoryMovie.delete({
             where: {
                 category_id_movie_id: {
                     category_id,

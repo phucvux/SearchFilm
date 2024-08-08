@@ -10,7 +10,7 @@ export class CommentService {
     if(!createCommentDto.content) {
       throw new Error("Comment Is Blank");
     }
-    return this.prisma.comments.create({
+    return this.prisma.comment.create({
       data: {
         content: createCommentDto.content,
         movie: {
@@ -24,13 +24,13 @@ export class CommentService {
   }
 
   async fetchAllMovieComment(movieId: number) {
-    return this.prisma.comments.findMany({
+    return this.prisma.comment.findMany({
       where: { movie_id: movieId },
     });
   }
 
   async updateComment(id: number, updateCommentDto: AddCommentDto) {
-    return this.prisma.comments.update({
+    return this.prisma.comment.update({
       where: {comment_id: id },
       data: {
         content: updateCommentDto.content,
@@ -39,7 +39,7 @@ export class CommentService {
   }
 
   async deleteComment(id: number) {
-    return this.prisma.comments.delete({
+    return this.prisma.comment.delete({
       where: {comment_id: id },
     });
   }

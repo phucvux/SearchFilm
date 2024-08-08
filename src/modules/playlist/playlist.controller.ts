@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Param, Put, Req, UseGuards } from '@nestjs/co
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylist } from './dto/create-playlist.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('playlists')
+@ApiTags('playlists')
 export class PlaylistController {
     constructor (private readonly playlistService: PlaylistService) {}
 

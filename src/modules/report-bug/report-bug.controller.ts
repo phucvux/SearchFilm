@@ -3,8 +3,10 @@ import { ReportBugService } from './report-bug.service';
 import { CreateBugReportDto } from './dto/create-report-bug.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('report-bug')
+@ApiTags('report-bug')
 export class ReportBugController {
     constructor(private readonly reportBugService: ReportBugService) {}
 

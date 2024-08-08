@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Get, Param, Put, Req, UseFilters, UseGuards }
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { NotificationService } from './notification.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('notifications')
+@ApiTags('notification')
 @UseFilters(AllExceptionsFilter)
 export class NotificationController {
     constructor (private readonly notificationService: NotificationService){}

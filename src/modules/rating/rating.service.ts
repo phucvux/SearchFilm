@@ -7,7 +7,7 @@ export class RatingService {
   constructor(private prisma: PrismaService) {}
 
   async addRating(movie_id: number, user_id: number, addRatingDto: AddRatingDto) {
-    const existingRating = await this.prisma.ratings.findFirst({
+    const existingRating = await this.prisma.rating.findFirst({
       where: {
         movie_id,
         user_id,
@@ -20,7 +20,7 @@ export class RatingService {
     if (addRatingDto.score < 1 || addRatingDto.score > 5) {
       throw new BadRequestException('Rating must be between 1 and 5');
     }
-    return this.prisma.ratings.create({
+    return this.prisma.rating.create({
       data: {
         score: addRatingDto.score,
         review: addRatingDto.review,
@@ -31,13 +31,13 @@ export class RatingService {
   }
 
   async getRate(movie_id: number) {
-    return this.prisma.ratings.findMany({
+    return this.prisma.rating.findMany({
       where: { movie_id },
     });
   }
 
   async getRateByUser (movie_id: number, user_id:number) {
-    const existMovie = await this.prisma.movies.findFirst({
+    const existMovie = await this.prisma.movie.findFirst({
       where: {
         movie_id
       }
@@ -46,13 +46,13 @@ export class RatingService {
       throw new HttpException("Movie Is Not Exist", HttpStatus.NOT_FOUND);
     }
 
-    return await this.prisma.ratings.findFirst({
+    return await this.prisma.rating.findFirst({
       where: {movie_id, user_id}
     })
   }
 
   async editOwnRate (rating_id: number, movie_id: number, user_id: number, updateRatingDto: AddRatingDto) {
-    const existMovie = await this.prisma.movies.findFirst({
+    const existMovie = await this.prisma.movie.findFirst({
       where: {
         movie_id
       }
@@ -61,7 +61,7 @@ export class RatingService {
       throw new HttpException("Movie Is Not Exist", HttpStatus.NOT_FOUND);
     }
 
-    return await this.prisma.ratings.update({
+    return await this.prisma.rating.update({
       where: {rating_id, movie_id, user_id} ,
       data: {
         score: updateRatingDto.score,

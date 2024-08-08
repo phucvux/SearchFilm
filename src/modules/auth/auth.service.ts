@@ -6,7 +6,7 @@ import { MailerService } from './mailersend/mailer.service';
 import { Login2faDto } from './dtos/login-2fa.dto';
 import { LoginDto } from './dtos/login.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +16,8 @@ export class AuthService {
     private mailerService: MailerService,
   ) {}
 
-  async register(userData: RegisterDto): Promise<users> {
-    const user = await this.prismaService.users.findUnique({
+  async register(userData: RegisterDto): Promise<User> {
+    const user = await this.prismaService.user.findUnique({
       where: { email: userData.email },
     });
 
@@ -29,13 +29,13 @@ export class AuthService {
 
     const hash = await bcrypt.hash(userData.password, salt);
 
-    return await this.prismaService.users.create({
+    return await this.prismaService.user.create({
       data: { ...userData, password: hash },
     });
   }
 
   async login(loginData: LoginDto): Promise<any> {
-    const user = await this.prismaService.users.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { username: loginData.username },
     });
 

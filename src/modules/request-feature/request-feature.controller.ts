@@ -3,8 +3,10 @@ import { RequestFeatureService } from './request-feature.service';
 import { AllExceptionsFilter } from '../all-exceptions/all-exceptions.filter';
 import { CreateFeatureRequestDto } from './dto/create-feature-request.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('request-feature')
+@ApiTags('request-feature')
 export class RequestFeatureController {
 
     constructor(private readonly requestFeatureService: RequestFeatureService) {}
