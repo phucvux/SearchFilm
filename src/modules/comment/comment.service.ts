@@ -24,6 +24,12 @@ export class CommentService {
   }
 
   async fetchAllMovieComment(movieId: number) {
+    const existedMovie = await this.prisma.movie.findFirst({
+      where: {movie_id: movieId}
+    })
+    if(!existedMovie) {
+      throw new HttpException("Movie Is Not Exist", HttpStatus.NOT_FOUND);
+    }
     return this.prisma.comment.findMany({
       where: { movie_id: movieId },
     });
